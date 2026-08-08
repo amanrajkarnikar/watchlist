@@ -7,30 +7,30 @@
 </head>
 <body>
 
-<div class="topbar">
-  <div class="logo">Watchlist</div>
-  <div class="topbar-right" style="display:flex; gap:20px; align-items:center;">
-    <a href="#">Features</a>
-    <a href="#">About</a>
-    <a href="login.php"><button class="btn-outline">Log in</button></a>
-    <a href="signup.php"><button class="btn-dark">Get started</button></a>
+<div class="topbar topbar-v2">
+  <a href="index.php" class="logo">📺 Watchlist</a>
+  <div class="topbar-right" style="display:flex; gap:14px; align-items:center;">
+    <a href="login.php"><button class="btn-pill-outline">Log in</button></a>
+    <a href="signup.php"><button class="btn-pill-solid">Get Started</button></a>
   </div>
 </div>
+<div class="topbar-divider"></div>
 
-<div class="hero">
-  <div class="hero-badge">Track movies & shows in one place</div>
-  <h1>Your personal movie watchlist, organized</h1>
-  <p>Add films and shows, track what you've watched, rate your favorites, and never lose track of what to watch next.</p>
-  <div class="hero-buttons">
-    <a href="signup.php"><button class="btn-dark">Create free account</button></a>
-    <button class="btn-outline">See how it works</button>
+<div class="hero-split">
+  <div class="hero-split-left">
+    <h1>Your personal media watchlist, organized</h1>
+    <div class="hero-buttons">
+      <a href="signup.php"><button class="btn-pill-solid">Create Free Account</button></a>
+      <a href="#features"><button class="btn-pill-outline">See how it works</button></a>
+    </div>
   </div>
+  <div class="hero-split-right"></div>
 </div>
 
-<div class="features">
+<div class="features" id="features">
   <div class="feature-card">
     <h3>Add anything</h3>
-    <p>Movies, TV shows, anime — add them with genre, type, and status.</p>
+    <p>Movies and TV shows — add them with genre, type, and status.</p>
   </div>
   <div class="feature-card">
     <h3>Browse the catalog</h3>

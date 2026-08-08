@@ -2,9 +2,6 @@
 session_start();
 require "db.php";
 
-$ADMIN_USERNAME = "admin";
-$ADMIN_PASSWORD = "admin123";
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username']);
     $password = $_POST['password'];
@@ -14,12 +11,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 
-    if ($username === $ADMIN_USERNAME && $password === $ADMIN_PASSWORD) {
+    // 1. Check the admins table using secure password_verify()
+    $admin_stmt = mysqli_prepare($conn, "SELECT id, password FROM admins WHERE username = ?");
+    mysqli_stmt_bind_param($admin_stmt, "s", $username);
+    mysqli_stmt_execute($admin_stmt);
+    $admin_res = mysqli_stmt_get_result($admin_stmt);
+    $admin_user = mysqli_fetch_assoc($admin_res);
+
+    if ($admin_user && password_verify($password, $admin_user['password'])) {
         $_SESSION['is_admin'] = true;
         header("Location: admin_dashboard.php");
         exit();
     }
 
+    // 2. Otherwise check a normal user account using password_verify()
     $stmt = mysqli_prepare($conn, "SELECT user_id, first_name, password FROM users WHERE username = ?");
     mysqli_stmt_bind_param($stmt, "s", $username);
     mysqli_stmt_execute($stmt);
@@ -31,6 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 
+    // Set user session variables
     $_SESSION['user_id']    = $user['user_id'];
     $_SESSION['first_name'] = $user['first_name'];
 
