@@ -4,8 +4,9 @@
     <span class="user-menu-caret">▾</span>
   </button>
   <div class="user-menu-dropdown">
+    <a href="friends.php">Friends</a>
     <a href="statistics.php">Statistics</a>
-    <a href="add_entry.php">Add entry</a>
+    <a href="request_title.php">Request a title</a>
     <div class="user-menu-divider"></div>
     <a href="logout.php">Log out</a>
   </div>
