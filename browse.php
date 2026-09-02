@@ -59,7 +59,7 @@ $catalog = mysqli_query($conn,
 
 <div class="dash-wrapper">
   <div class="sidebar">
-    <div class="logo">📺 Watchlist</div>
+    <a href="dashboard.php" class="logo" style="text-decoration:none;">Watchlist</a>
     <div class="sidebar-nav-scroll">
       <form class="sidebar-search" action="browse.php" method="GET">
         <input type="text" name="search" placeholder="Search..." value="<?php echo htmlspecialchars($search); ?>">
@@ -68,8 +68,8 @@ $catalog = mysqli_query($conn,
       <a href="dashboard.php" class="nav-link">📊 Dashboard</a>
       <a href="mylist.php" class="nav-link">📋 My list</a>
       <a href="browse.php" class="nav-link active">🔍 Browse</a>
+            <a href="friends.php" class="nav-link">👥 Friends</a>
     </div>
-
   </div>
 
   <div class="main-content">
@@ -87,7 +87,6 @@ $catalog = mysqli_query($conn,
       <div class="error-msg" style="background:rgba(111,207,151,0.12); color:var(--green); border-color:var(--green);">Added to your list.</div>
     <?php endif; ?>
 
-    <!-- Genre filter bar -->
     <div class="genre-filter-bar">
       <a href="browse.php" class="genre-btn <?php echo empty($genre_filter) ? 'active' : ''; ?>">All</a>
       <?php foreach ($all_genres as $g): ?>
@@ -104,24 +103,32 @@ $catalog = mysqli_query($conn,
       <div class="poster-grid">
         <?php while ($item = mysqli_fetch_assoc($catalog)): ?>
           <div class="poster-card">
+            
             <div class="poster-card-image">
-              <div class="poster-tag"><?php
+              <div class="poster-tag" style="z-index: 10;"><?php
                 $type_emoji = ['Movie' => '🎬', 'TV' => '📺', 'Anime' => '⛩️'];
                 echo ($type_emoji[$item['media_type']] ?? '🎬') . ' ' . htmlspecialchars($item['media_type']);
               ?></div>
-              <div class="poster-actions">
+              
+              <div class="poster-actions" style="z-index: 10;">
                 <a href="browse.php?add=<?php echo $item['media_id']; ?><?php echo !empty($genre_filter) ? '&genre=' . urlencode($genre_filter) : ''; ?>"
                    title="Add to my list">➕</a>
               </div>
-              <?php if (!empty($item['poster_image'])): ?>
-                <img src="uploads/posters/<?php echo htmlspecialchars($item['poster_image']); ?>"
-                     alt="<?php echo htmlspecialchars($item['title_name']); ?>">
-              <?php else: ?>
-                <div class="poster-fallback"><?php echo strtoupper(substr($item['title_name'], 0, 1)); ?></div>
-              <?php endif; ?>
+
+              <a href="media_details.php?id=<?php echo $item['media_id']; ?>" style="display:block; position:absolute; inset:0; z-index:1;">
+                <?php if (!empty($item['poster_image'])): ?>
+                  <img src="uploads/posters/<?php echo htmlspecialchars($item['poster_image']); ?>"
+                       alt="<?php echo htmlspecialchars($item['title_name']); ?>" style="width:100%; height:100%; object-fit:cover;">
+                <?php else: ?>
+                  <div class="poster-fallback" style="width:100%; height:100%; display:flex; align-items:center; justify-content:center;"><?php echo strtoupper(substr($item['title_name'], 0, 1)); ?></div>
+                <?php endif; ?>
+              </a>
             </div>
+
             <div class="poster-card-caption">
-              <div class="poster-title"><?php echo htmlspecialchars($item['title_name']); ?></div>
+              <a href="media_details.php?id=<?php echo $item['media_id']; ?>" style="text-decoration:none; color:inherit;">
+                <div class="poster-title"><?php echo htmlspecialchars($item['title_name']); ?></div>
+              </a>
               <div class="poster-sub"><?php echo htmlspecialchars($item['genre']); ?> · <?php echo $item['release_year']; ?></div>
               <?php if (!empty($item['review_value'])): ?>
                 <div class="poster-rating"><?php echo $item['review_value']; ?> <span style="color:var(--text-gray); font-weight:400;">your rating</span></div>
