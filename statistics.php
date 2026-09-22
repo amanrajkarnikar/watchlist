@@ -49,7 +49,7 @@ $genre_colors = ['#7c6ef0', '#2dd4bf', '#fbbf24', '#f472b6', '#4ade80'];
 <div class="dash-wrapper">
 
   <div class="sidebar">
-    <div class="logo">Watchlist</div>
+    <a href="dashboard.php" class="logo" style="text-decoration:none;">Watchlist</a>
 
     <div class="sidebar-nav-scroll">
       <form class="sidebar-search" action="browse.php" method="GET">
@@ -60,6 +60,7 @@ $genre_colors = ['#7c6ef0', '#2dd4bf', '#fbbf24', '#f472b6', '#4ade80'];
       <a href="dashboard.php" class="nav-link">Dashboard</a>
       <a href="mylist.php" class="nav-link">My list</a>
       <a href="browse.php" class="nav-link">Browse</a>
+            <a href="friends.php" class="nav-link">Friends</a>
     </div>
   </div>
 
